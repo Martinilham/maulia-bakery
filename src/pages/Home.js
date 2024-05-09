@@ -1,7 +1,7 @@
 import FrameComponent8 from "../components/FrameComponent8";
 import FrameComponent7 from "../components/FrameComponent7";
 import FrameComponent6 from "../components/FrameComponent6";
-import FrameComponent5 from "../components/FrameComponent5";
+import JenisKue from "../components/jenisKue";
 import FrameComponent4 from "../components/FrameComponent4";
 import FrameComponent3 from "../components/FrameComponent3";
 import ShowReview from "../components/ShowReview";
@@ -24,7 +24,7 @@ const Home = () => {
         </div>
       </section>
       <FrameComponent6 />
-      <FrameComponent5 />
+      <JenisKue />
       <FrameComponent4 />
       <FrameComponent3 />
       <div className="w-[1365px] flex flex-row items-start justify-center pt-0 px-5 pb-7 box-border max-w-full">

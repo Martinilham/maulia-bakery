@@ -23,7 +23,7 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen}
             <div className="lg:font-small relative   whitespace-nowrap mq450:text-base mq450:leading-[19px]">
               {price}
             </div>
-            {!setopen && (
+            {setopen == false && (
               <button 
               className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
               onClick={button}
@@ -48,6 +48,9 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen}
                 />
                 <span>terpesan</span>
               </button>
+            )}
+            {setopen == "home" && (
+              <div>p</div>
             )}
           </div>
         </div>
