@@ -3,41 +3,27 @@ import { FiMenu } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 import clsx from "clsx";
 
-export default function Navbar() {
+export default function Navbar({links}) {
   const [isSideMenuOpen, setMenu] = useState(false);
 
-  const navlinks = [
-    {
-      label: "Home",
-      link: "#"
-    },
-    {
-      label: "About",
-      link: "#"
-    },
-    {
-      label: "Contact",
-      link: "#"
-    }
-  ];
 
   return (
     <>
-      <nav className="absolute z-50 w-full flex justify-between px-8 items-center ">
+      <nav className="mx-8  lg:mx-0 overflow-x-hidden absolute z-50 w-full flex justify-between items-center ">
         <div className="flex items-center gap-6">
           <section className="flex items-center gap-8 mx-auto w-full md:w-auto">
             {/* menu */}
             <FiMenu
               onClick={() => setMenu(true)}
-              className="text-3xl cursor-pointer lg:block hidden"
+              className="text-3xl lg:ml-8 cursor-pointer lg:block hidden"
             />
            <h1 className="mx-8 text-7xl font-sniglet relative whitespace-nowrap">
               MauliaBakery
             </h1>
           </section>
           <div className="w-full lg:hidden ml-60 flex-1 font-medium md:flex md:inline-block flex-row flex justify-center gap-4">
-          {navlinks.map((d, i) => (
-            <a key={i} className="text-center ml-6 text-black no-underline hover:text-black" href={d.link}>
+          {links.map((d, i) => (
+            <a key={i} className="text-center ml-12 text-black no-underline hover:text-black" href={d.link}>
               {d.label}
             </a>
           ))}
@@ -45,21 +31,7 @@ export default function Navbar() {
         </div>
 
         {/* last section */}
-        <div className="flex items-center gap-8">
-          {/* Shopping Cart Icon */}
-          <img
-            className="h-6 w-6 relative overflow-hidden shrink-0"
-            loading="lazy"
-            alt=""
-            src="/shopping-cart.svg"
-          />
-          {/* Login Button */}
-          <button className="lg:hidden mr-24 cursor-pointer py-1.5 px-[9px] bg-[transparent] flex-1 rounded-lg flex flex-row items-center justify-center border-[1px] border-solid border-main-color hover:bg-darkgoldenrod-200 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkgoldenrod-100">
-            <div className="relative text-base leading-[24px] font-body-large text-black text-left inline-block min-w-[42px]">
-              Pesan
-            </div>
-          </button>
-        </div>
+
 
         {/* sidebar mobile menu */}
         <div
@@ -74,7 +46,7 @@ export default function Navbar() {
               className="mt-0 mb-8 text-3xl cursor-pointer"
             />
 
-            {navlinks.map((d, i) => (
+            {links.map((d, i) => (
               <a key={i} className="text-center relative text-black no-underline hover:text-black" href={d.link}>
               {d.label}
             </a>

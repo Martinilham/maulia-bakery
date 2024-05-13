@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen}) => {
+const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,qty}) => {
   const navigate = useNavigate()
   return (
     <div className="w-50 lg:w-36 rounded-lg bg-white box-border shrink-0 flex lg:flex-row flex-row items-start justify-start py-[18px] px-[18px] text-left text-5xl text-black font-body-large border-[1px] border-solid border-gray mq650:pt-5 mq650:pb-5 mq650:box-border">
@@ -52,6 +52,23 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen}
             {setopen == "home" && (
               <div>p</div>
             )}
+            {qty > 0 ? (
+                <button 
+                className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
+                onClick={button}
+                >  
+                  <span>Tambah</span>
+                </button>
+              
+              ) : (
+                <button 
+                className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
+                onClick={button}
+                > 
+                  <span>Pesan</span>
+                </button>
+              
+              )}
           </div>
         </div>
       </div>

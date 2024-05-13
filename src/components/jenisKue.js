@@ -13,7 +13,6 @@ const JenisKue = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const api_link = process.env.REACT_APP_API_SECRET
-  console.log(api_link)
   const getUserData = async () => {
     try {
       const res = await axios.get(`${api_link}getdata`, {

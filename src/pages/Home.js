@@ -1,4 +1,3 @@
-import FrameComponent8 from "../components/FrameComponent8";
 import FrameComponent7 from "../components/FrameComponent7";
 import FrameComponent6 from "../components/FrameComponent6";
 import JenisKue from "../components/jenisKue";
@@ -10,9 +9,24 @@ import Footer from "../components/Footer";
 import Navbar from "../components/navbar";
 
 const Home = () => {
+  const navlinks = [
+    {
+      label: "Home",
+      link: "#"
+    },
+    {
+      label: "About",
+      link: "#"
+    },
+    {
+      label: "Contact",
+      link: "#"
+    }
+  ];
+
   return (
     <>
-    <Navbar/>
+    <Navbar links={navlinks}/>
     <div className="w-full mt-12 lg:mt-0 bg-white overflow-hidden flex flex-col items-end justify-start pt-[55px] px-0 pb-0 box-border gap-[76px] leading-[normal] tracking-[normal] text-left text-21xl text-black font-body-large mq750:gap-[38px] mq450:gap-[19px]">
       <FrameComponent7 />
       <section className="w-[1324px] flex flex-row items-start justify-center pt-0 px-5 pb-[21px] box-border max-w-full text-left text-21xl text-black font-body-large">

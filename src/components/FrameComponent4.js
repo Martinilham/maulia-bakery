@@ -5,18 +5,22 @@ const FrameComponent4 = () => {
 
 
   return (
-    <section className="w-[1327px] flex flex-row items-start justify-end pt-0 px-[65px] pb-[91px] box-border max-w-full text-left text-21xl text-black font-body-large lg:pl-8 lg:pr-8 lg:box-border mq750:pb-[59px] mq750:box-border">
-      <div className="flex-1 flex flex-col items-start justify-start gap-[85px] max-w-full lg:gap-[42px] mq750:gap-[21px]">
-        <div className="w-[1084px] flex flex-row items-start justify-center py-0 px-5 box-border max-w-full">
-          <div className="w-[283px] flex flex-col items-start justify-start gap-[10px]">
-            <h1 className="m-0 relative text-inherit leading-[52px] capitalize font-semibold font-inherit mq450:text-5xl mq450:leading-[31px] mq1050:text-13xl mq1050:leading-[42px]">
-              Diskon Spesial
-            </h1>
-            <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[62px] pl-[65.5px] mq450:pl-5 mq450:pr-5 mq450:box-border">
-              <div className="h-[3px] flex-1 relative box-border border-t-[3px] border-solid border-main-color" />
+    <section className="w-full flex flex-row items-start justify-end pt-0 px-[65px] pb-[91px] box-border max-w-full text-left text-21xl text-black font-body-large lg:pl-8 lg:pr-8 lg:box-border mq750:pb-[59px] mq750:box-border">
+      <div className="flex-1  flex flex-col items-end justify-start  max-w-full mq750:gap-[43px] mq450:gap-[21px]">
+        <div className="w-full flex m-auto flex-col items-end justify-start gap-[60px] max-w-full mq1050:gap-[30px]">
+          <div className="self-stretch flex m-auto flex-row items-start justify-start max-w-full">
+            <div className="w-full m-auto flex flex-col items-start justify-start gap-[10px] max-w-full">
+              <h1 className="m-0 lg:text-center lg:m-auto text-center relative text-inherit  capitalize font-semibold font-inherit mq450:text-5xl mq450:leading-[31px] mq1050:text-13xl mq1050:leading-[42px]">
+               Diskon Spesial
+              </h1>
+              <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
+                <div className="h-[3px] w-[155px] relative box-border border-t-[3px] border-solid mb-20 border-main-color" />
+              </div>
             </div>
           </div>
-        </div>
+       
+        
+      </div>
         <div className="self-stretch flex flex-row items-end justify-between max-w-full gap-[20px] lg:flex-wrap lg:justify-center">
           <div className="h-[389px] w-[452px] shadow-[36px_35px_4px_rgba(0,_0,_0,_0.25)] bg-gray1 flex flex-row items-start justify-start py-[57px] px-[71px] box-border min-w-[452px] max-w-full lg:flex-1 mq750:min-w-full mq450:py-[37px] mq450:px-[35px] mq450:box-border">
             <div className="h-[389px] w-[452px] relative shadow-[36px_35px_4px_rgba(0,_0,_0,_0.25)] bg-gray1 hidden max-w-full" />
@@ -57,7 +61,7 @@ const FrameComponent4 = () => {
             </div>
           </div>
         </div>
-      </div>
+        </div>
     </section>
   );
 };

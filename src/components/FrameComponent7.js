@@ -40,7 +40,7 @@ const FrameComponent7 = () =>  {
             <button 
             type="button"
             className="cursor-pointer py-4 px-[23px] bg-main-color rounded-lg flex flex-row items-start justify-start gap-[8px] whitespace-nowrap border-[1px] border-solid border-main-color hover:bg-darkgoldenrod-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkgoldenrod-100"
-            onClick={()=>navigate('/pesan')}>
+            onClick={()=>navigate('/login')}>
               <div className="relative text-base leading-[24px] font-body-large text-white text-left inline-block min-w-[80px]">
                 Pesan Kue
               </div>
