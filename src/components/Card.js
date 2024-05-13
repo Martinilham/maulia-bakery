@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,qty}) => {
+const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,kurangi,qty}) => {
   const navigate = useNavigate()
   return (
     <div className="w-50 lg:w-36 rounded-lg bg-white box-border shrink-0 flex lg:flex-row flex-row items-start justify-start py-[18px] px-[18px] text-left text-5xl text-black font-body-large border-[1px] border-solid border-gray mq650:pt-5 mq650:pb-5 mq650:box-border">
@@ -23,42 +23,22 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,
             <div className="lg:font-small relative   whitespace-nowrap mq450:text-base mq450:leading-[19px]">
               {price}
             </div>
-            {setopen == false && (
-              <button 
-              className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
-              onClick={button}
-              >  
-                <img
-                  className="h-5 w-5 relative overflow-hidden mr-1 lg:mt-1"
-                  alt=""
-                  src="/shopping-cart-1.svg"
-                />
-                <span>Pesan</span>
-              </button>
-            )}
-            {setopen && (
-              <button 
-              className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
-              onClick={()=>navigate("/detailpesanan")}
-              >  
-                <img
-                  className="h-5 w-5 relative overflow-hidden mr-1 lg:mt-1"
-                  alt=""
-                  src="/shopping-cart-1.svg"
-                />
-                <span>terpesan</span>
-              </button>
-            )}
-            {setopen == "home" && (
-              <div>p</div>
-            )}
-            {qty > 0 ? (
-                <button 
-                className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
+            {qty > 0 && setopen ? (
+                <div className="w-full justify-center items-center flex-row flex">
+                  <button 
+                className="cursor-pointer flex items-center justify-center w-10 my-2 py-1 rounded-md bg-main-color"
                 onClick={button}
                 >  
-                  <span>Tambah</span>
+                  <span>+</span>
                 </button>
+                <span className="text-center items-center justify-center my-2 mx-8">{qty}</span>
+                <button 
+                className="cursor-pointer flex items-center justify-center w-10 my-2 py-1 rounded-md bg-main-color"
+                onClick={kurangi}
+                >  
+                  <span>-</span>
+                </button>
+                </div>
               
               ) : (
                 <button 

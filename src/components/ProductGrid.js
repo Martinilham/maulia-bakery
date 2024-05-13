@@ -57,17 +57,16 @@ const ProductGrid = () => {
   }, []);
 
   const handlePesan = (id, fname,imgpath,harga) => {
-    // Cek apakah item sudah ada di keranjang belanja
+
     const existingItem = cartItem.find((item) => item.id === id);
 
     if (existingItem) {
-      // Jika sudah ada, tambahkan jumlahnya
+
       const updatedCart = cartItem.map((item) =>
         item.id === id ? { ...item, qty: item.qty + 1 } : item
       );
       setCartItem(updatedCart);
     } else {
-      // Jika belum ada, tambahkan item baru ke keranjang belanja
       setCartItem([
         ...cartItem,
         {
@@ -80,6 +79,31 @@ const ProductGrid = () => {
       ]);
     }
     setpesan(true);
+  };
+
+  const handleKurangiPesan = (id, fname,imgpath,harga) => {
+
+    const existingItem = cartItem.find((item) => item.id === id);
+
+    if (existingItem) {
+
+      const updatedCart = cartItem.map((item) =>
+        item.id === id ? { ...item, qty: item.qty - 1 } : item
+      );
+      setCartItem(updatedCart);
+    } else {
+      setCartItem([
+        ...cartItem,
+        {
+          id,
+          fname,
+          qty: 1,
+          imgpath,
+          harga,
+        },
+      ]);
+    }
+    setpesan(false);
   };
 
   const rupiah = (number) => {
@@ -134,6 +158,7 @@ const ProductGrid = () => {
               title={e.fname}
               price={rupiah(e.harga)}
               button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga)}
+              kurangi = {()=>handleKurangiPesan(e._id, e.fname,e.imgpath,e.harga)}
               setopen={pesan}
               qty={
                 cartItem.find((item) => item.id === e._id)
@@ -174,7 +199,7 @@ const ProductGrid = () => {
       </div>
       {pesan && (
         <button
-          className="cursor-pointer mx-auto flex items-center justify-center w-1/2 my-2 py-1 rounded-md bg-main-color"
+          className="fixed bottom-0 start-0 end-0 cursor-pointer mx-auto flex items-center justify-center w-1/2 my-2 py-1 rounded-md bg-main-color"
           onClick={handleorder}
         >
           <img
