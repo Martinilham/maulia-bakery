@@ -29,9 +29,9 @@ const Home = () => {
     <Navbar links={navlinks}/>
     <div className="w-full mt-12 lg:mt-0 bg-white overflow-hidden flex flex-col items-end justify-start pt-[55px] px-0 pb-0 box-border gap-[76px] leading-[normal] tracking-[normal] text-left text-21xl text-black font-body-large mq750:gap-[38px] mq450:gap-[19px]">
       <FrameComponent7 />
-      <section className="w-[1324px] flex flex-row items-start justify-center pt-0 px-5 pb-[21px] box-border max-w-full text-left text-21xl text-black font-body-large">
+      <section className="w-full m-auto flex flex-row items-start justify-center pt-0 px-5 pb-[21px] box-border max-w-full text-left text-21xl text-black font-body-large">
         <div className="w-[494px] flex flex-col items-center justify-start gap-[10px] max-w-full">
-          <h1 className="m-0 relative text-center lg:text-center text-inherit leading-[52px] capitalize font-semibold font-inherit mq450:text-5xl mq450:leading-[31px] mq1050:text-13xl mq1050:leading-[42px]">{`cara order Maulia Bakery `}</h1>
+          <h1 className="m-auto relative text-center lg:text-center text-inherit leading-[52px] capitalize font-semibold font-inherit mq450:text-5xl mq450:leading-[31px] mq1050:text-13xl mq1050:leading-[42px]">{`cara order Maulia Bakery `}</h1>
           <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
             <div className="h-[3px] w-[155px] relative box-border border-t-[3px] border-solid border-main-color" />
           </div>

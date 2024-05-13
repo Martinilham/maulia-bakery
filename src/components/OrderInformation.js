@@ -24,18 +24,18 @@ const OrderInformation = () => {
     return harga * qty;
   };
 
-  const initiatePayment = async () => {
-    try {
-      const response = await axios.post('https://app.sandbox.midtrans.com/snap/v1/transactions', {
-        orderId: generateOrderId(),
-        totalAmount: totalOrder,
-        items: pesanan
-      });
-      window.location.href = response.data.redirect_url;
-    } catch (error) {
-      console.error('Error initiating payment:', error);
-    }
-  };
+  // const initiatePayment = async () => {
+  //   try {
+  //     const response = await axios.post('https://app.sandbox.midtrans.com/snap/v1/transactions', {
+  //       orderId: generateOrderId(),
+  //       totalAmount: totalOrder,
+  //       items: pesanan
+  //     });
+  //     window.location.href = response.data.redirect_url;
+  //   } catch (error) {
+  //     console.error('Error initiating payment:', error);
+  //   }
+  // };
   
 
   return (

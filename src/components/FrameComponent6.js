@@ -2,8 +2,9 @@ import Card1 from "./Card1";
 
 const FrameComponent6 = () => {
   return (
-    <section className="w-[1424px] flex flex-row items-start justify-end py-0 px-16 box-border max-w-full text-left text-13xl text-black font-body-large mq750:pl-8 mq750:pr-8 mq750:box-border">
-      <div className="flex-1 flex flex-row items-start justify-center gap-[16px] max-w-full lg:flex-wrap">
+    <section className="self-stretch text-center flex flex-row items-start justify-center pt-0 mx-auto box-border max-w-full mt-10 text-21xl text-black font-body-large mq750:pl-10 mq750:pr-[39px] mq750:box-border">
+      <div className="flex-1 flex flex-col items-end justify-start  max-w-full mq750:gap-[43px] mq450:gap-[21px]">
+        <div className="w-full flex m-auto flex-col items-end justify-start gap-[60px] max-w-full mq1050:gap-[30px]">
         <div className="flex flex-row  lg:flex-col gap-[16px]">
           <Card1
             selectFood="/select-food@2x.png"
@@ -42,6 +43,7 @@ const FrameComponent6 = () => {
             propMinHeight="unset"
           />
         </div>
+      </div>
       </div>
     </section>
   );
