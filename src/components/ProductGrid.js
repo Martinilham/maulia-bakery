@@ -54,6 +54,7 @@ const ProductGrid = () => {
 
   useEffect(() => {
     getUserData();
+    localStorage.removeItem("pesanan")
   }, []);
 
   const handlePesan = (id, fname,imgpath,harga) => {
@@ -121,8 +122,8 @@ const ProductGrid = () => {
     navigate("/detailpesanan");
   };
   
+  
 
-  console.log(cartItem)
   return (
     <>
       <div className=" relative flex lg:flex-col items-center mx-auto justify-between w-1/2 lg:w-full">

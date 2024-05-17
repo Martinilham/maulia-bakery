@@ -1,42 +1,130 @@
 import { useState, useEffect } from "react";
 import Items from "./Items";
+import {jwtDecode as jwt_decode} from 'jwt-decode';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const OrderInformation = () => {
   const [pesanan, setPesanan] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
+  const [dataClient, setDataClient] = useState({});
+  const [token, setToken] = useState("");
+  const navigate = useNavigate()
+
+  const generateOrderId = () => {
+    const timestamp = Date.now();
+    const randomSegment = Math.random().toString(36).substr(2, 9);
+    return `ORD-${timestamp}-${randomSegment}`;
+  };
 
   useEffect(() => {
     const storedPesanan = localStorage.getItem("pesanan");
-
+    if (storedPesanan) {
       setPesanan(JSON.parse(storedPesanan));
-      console.log(storedPesanan)
+    }
   }, []);
 
   useEffect(() => {
-    const total = pesanan.reduce(
-      (acc, item) => acc + item.qty * item.harga,
-      0
-    );
+    const total = pesanan.reduce((acc, item) => acc + item.qty * item.harga, 0);
     setTotalOrder(total);
   }, [pesanan]);
+
+  useEffect(() => {
+    const tokenNow = localStorage.getItem("token");
+    if (tokenNow) {
+      const decodedToken = jwt_decode(tokenNow);
+      setDataClient(decodedToken);
+    } else {
+      console.log("Token tidak tersedia. Silakan masuk untuk melihat profil.");
+    }
+  }, []);
 
   const jumlah = (harga, qty) => {
     return harga * qty;
   };
 
-  // const initiatePayment = async () => {
-  //   try {
-  //     const response = await axios.post('https://app.sandbox.midtrans.com/snap/v1/transactions', {
-  //       orderId: generateOrderId(),
-  //       totalAmount: totalOrder,
-  //       items: pesanan
-  //     });
-  //     window.location.href = response.data.redirect_url;
-  //   } catch (error) {
-  //     console.error('Error initiating payment:', error);
-  //   }
-  // };
-  
+  const pembayaran = async () => {
+    if (!dataClient || !pesanan.length) {
+      console.error("Data client atau pesanan tidak tersedia.");
+      return;
+    }
+
+    const pesan = {
+      idpemesan: dataClient.id || "",
+      namapemesan: dataClient.name || "",
+      items: pesanan.map(item => ({
+        produk_id: item.id,
+        namaproduk: item.nama,
+        kategori: item.kategori,
+        harga: item.harga,
+        jumlah: item.qty
+      })),
+      alamat: dataClient.address || "",
+      notlpn: dataClient.phone || "",
+      total: totalOrder,
+      statusbayar: "pending",
+      statusditerima: "processing",
+      tglorder: new Date().toISOString()
+    };
+
+    const pembayaranONLINE = {
+      orderId: generateOrderId(),
+      total: totalOrder
+    };
+
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/paymnet/pembayaran-online`,
+        pembayaranONLINE,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      );
+      setToken(response.data.token);
+    } catch (error) {
+      console.error('Error initiating payment:', error.response ? error.response.data : error.message);
+    }
+
+    
+          
+  };
+
+  useEffect(() => {
+    if (token) {
+      window.snap.pay(token, {
+        onSuccess: (result) => {
+          navigate("/pesan")
+          setToken("")
+          
+        },
+        onPending: (result) => {
+          
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+        onClose: () => {
+          console.log("anda membatalkan");
+        }
+      });
+      
+    }
+   
+  }, [token]);
+
+  useEffect(() => {
+    const midtransUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransUrl;
+    scriptTag.setAttribute("data-client-key", "SB-Mid-client-cAFD0sSoOSoeyfA3");
+    document.body.appendChild(scriptTag);
+
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
 
   return (
     <div className="w-[1294px] flex flex-row items-start justify-center py-0 px-5 box-border max-w-full text-left text-base text-goldenrod-100 font-body-large">
@@ -46,7 +134,7 @@ const OrderInformation = () => {
           <div className="self-stretch flex flex-col items-start justify-start gap-[22px] text-sm text-black">
             <div className="self-stretch rounded-lg flex flex-row items-start justify-start py-[18px] px-5 border-[1px] border-solid border-gray">
               <div className="relative leading-[20px]">
-                <p className="m-0">Nama Pembeli : </p>
+                <p className="m-0">Nama Pembeli : {dataClient.userName}</p>
                 <p className="m-0">{`Alamat : `}</p>
                 <p className="m-0">Waktu Pemesanan : </p>
               </div>
@@ -74,8 +162,9 @@ const OrderInformation = () => {
               />
             </div>
           </div>
-          <button className="cursor-pointer py-4 px-5 bg-main-color self-stretch rounded-lg flex flex-row items-center justify-center border-[1px] border-solid border-main-color hover:bg-darkgoldenrod-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkgoldenrod-100"
-            onClick={initiatePayment}
+          <button
+            className="cursor-pointer py-4 px-5 bg-main-color self-stretch rounded-lg flex flex-row items-center justify-center border-[1px] border-solid border-main-color hover:bg-darkgoldenrod-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkgoldenrod-100"
+            onClick={pembayaran}
           >
             <div className="relative text-base leading-[24px] font-body-large text-white text-left">
               Lakukan Pembayaran
