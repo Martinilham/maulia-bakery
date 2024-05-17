@@ -42,8 +42,9 @@ const OrderInformation = () => {
   const jumlah = (harga, qty) => {
     return harga * qty;
   };
-
-  const pembayaran = async () => {
+  const api_link = process.env.REACT_APP_API_SECRET
+  const pembayaran = async (e) => {
+    e.preventDefault();
     if (!dataClient || !pesanan.length) {
       console.error("Data client atau pesanan tidak tersedia.");
       return;
@@ -74,7 +75,7 @@ const OrderInformation = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/paymnet/pembayaran-online`,
+        `${api_link}/api/paymnet/pembayaran-online`,
         pembayaranONLINE,
         {
           headers: {
