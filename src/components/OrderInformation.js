@@ -75,7 +75,7 @@ const OrderInformation = () => {
 
     try {
       const response = await axios.post(
-        `${api_link}/api/paymnet/pembayaran-online`,
+        `${api_link}api/paymnet/pembayaran-online`,
         pembayaranONLINE,
         {
           headers: {
