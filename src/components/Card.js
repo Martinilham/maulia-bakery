@@ -19,19 +19,19 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,
               {description}
             </div>
           </div>
-          <div className="self-stretch flex flex-col items-start justify-between  text-center text-xl mq450:flex-wrap">
+          <div className="w-full self-stretch flex flex-col items-start justify-between  text-center text-xl mq450:flex-wrap">
             <div className="lg:font-small relative   whitespace-nowrap mq450:text-base mq450:leading-[19px]">
               {price}
             </div>
             {qty > 0 && setopen ? (
-                <div className="w-full justify-center items-center flex-row flex">
+                <div className="w-full lg:w-full justify-center items-center flex-row flex">
                   <button 
-                className="cursor-pointer flex items-center justify-center w-10 my-2 py-1 rounded-md bg-main-color"
+                className="cursor-pointer flex items-center justify-center  w-10 my-2 py-1 rounded-md bg-main-color"
                 onClick={button}
                 >  
                   <span>+</span>
                 </button>
-                <span className="text-center items-center justify-center my-2 mx-8">{qty}</span>
+                <span className="text-center items-center justify-center my-2 mx-8 lg:mx-1">{qty}</span>
                 <button 
                 className="cursor-pointer flex items-center justify-center w-10 my-2 py-1 rounded-md bg-main-color"
                 onClick={kurangi}

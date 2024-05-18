@@ -38,6 +38,36 @@ const OrderInformation = () => {
       console.log("Token tidak tersedia. Silakan masuk untuk melihat profil.");
     }
   }, []);
+  const rupiah = (number) => {
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
+  };
+
+  
+
+  const pesan = {
+    idpemesan: dataClient.id || "",
+    namapemesan: dataClient.userName || "",
+    items: pesanan.map(item => ({
+      produk_id: item.id,
+      namaproduk: item.nama,
+      kategori: item.kategori,
+      harga: item.harga,
+      jumlah: item.qty
+    })),
+    alamat: dataClient.alamatClient || "",
+    notlpn: dataClient.notlp || "",
+    total: totalOrder,
+    statusbayar: "pending",
+    statusditerima: "processing",
+    tglorder: new Date().toISOString()
+  };
+
 
   const jumlah = (harga, qty) => {
     return harga * qty;
@@ -50,23 +80,7 @@ const OrderInformation = () => {
       return;
     }
 
-    const pesan = {
-      idpemesan: dataClient.id || "",
-      namapemesan: dataClient.name || "",
-      items: pesanan.map(item => ({
-        produk_id: item.id,
-        namaproduk: item.nama,
-        kategori: item.kategori,
-        harga: item.harga,
-        jumlah: item.qty
-      })),
-      alamat: dataClient.address || "",
-      notlpn: dataClient.phone || "",
-      total: totalOrder,
-      statusbayar: "pending",
-      statusditerima: "processing",
-      tglorder: new Date().toISOString()
-    };
+    
 
     const pembayaranONLINE = {
       orderId: generateOrderId(),
@@ -95,7 +109,33 @@ const OrderInformation = () => {
   useEffect(() => {
     if (token) {
       window.snap.pay(token, {
-        onSuccess: (result) => {
+        onSuccess: async (result) => {
+          const pesan = {
+            idpemesan: dataClient.id,
+            namapemesan: dataClient.userName,
+            items: 
+              pesanan.map(item => ({
+              produk_id: item.id,
+              namaproduk: item.fname,
+              harga: item.harga,
+              jumlah: item.qty
+            })),
+            alamat: dataClient.alamatClient,
+            notlpn: dataClient.notlp,
+            total: totalOrder,
+            statusbayar: "success",
+            statusditerima: "processing"
+          };
+        
+
+          const response = await axios.post("http://localhost:5000/pesanan",pesan,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+          )
+
           navigate("/pesan")
           setToken("")
           
@@ -135,15 +175,15 @@ const OrderInformation = () => {
           <div className="self-stretch flex flex-col items-start justify-start gap-[22px] text-sm text-black">
             <div className="self-stretch rounded-lg flex flex-row items-start justify-start py-[18px] px-5 border-[1px] border-solid border-gray">
               <div className="relative leading-[20px]">
-                <p className="m-0">Nama Pembeli : {dataClient.userName}</p>
-                <p className="m-0">{`Alamat : `}</p>
-                <p className="m-0">Waktu Pemesanan : </p>
+                <p className="m-0">Nama  : {dataClient.userName}</p>
+                <p className="m-0">{`no tlp : ${dataClient.notlp}`}</p>
+                <p className="m-0">{`Alamat : ${dataClient.alamatClient}`}</p>
               </div>
             </div>
             <div className="relative text-base leading-[24px] text-goldenrod-100">{`Detail Pesanan Anda `}</div>
           </div>
         </div>
-        <div className="self-stretch rounded-lg box-border flex flex-col items-center justify-start py-[22px] px-[23px] gap-[48px] max-w-full text-black border-[1px] border-solid border-gray mq750:gap-[24px] mq750:pt-5 mq750:pb-5 mq750:box-border">
+        <div className=" self-stretch rounded-lg box-border flex flex-col items-center justify-start py-[22px] px-[23px] gap-[48px] max-w-full text-black border-[1px] border-solid border-gray mq750:gap-[24px] mq750:pt-5 mq750:pb-5 mq750:box-border">
           {pesanan.map((item, index) => (
             <Items
               key={index}
@@ -155,12 +195,7 @@ const OrderInformation = () => {
           ))}
           <div className="self-stretch flex flex-col items-start justify-start max-w-full">
             <div className="self-stretch rounded-lg box-border flex flex-row flex-wrap items-center justify-start py-[18px] pr-[17px] pl-[19px] gap-[10px] max-w-full border-[1px] border-solid border-gray">
-              <div className="relative leading-[24px]">{`Total Pesanan Anda ${totalOrder}`}</div>
-              <input
-                className="w-full [border:none] [outline:none] font-body-large text-base bg-[transparent] h-6 flex-1 relative leading-[24px] text-black text-right inline-block min-w-[281px] whitespace-nowrap max-w-full p-0"
-                placeholder="Rp.190.000,00"
-                type="text"
-              />
+              <div className="relative leading-[24px]">{`Total Pesanan Anda : ${rupiah(totalOrder)}`}</div>
             </div>
           </div>
           <button

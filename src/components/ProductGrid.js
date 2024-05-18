@@ -57,12 +57,10 @@ const ProductGrid = () => {
     localStorage.removeItem("pesanan")
   }, []);
 
-  const handlePesan = (id, fname,imgpath,harga) => {
-
+  const handlePesan = (id, fname, imgpath, harga) => {
     const existingItem = cartItem.find((item) => item.id === id);
-
+  
     if (existingItem) {
-
       const updatedCart = cartItem.map((item) =>
         item.id === id ? { ...item, qty: item.qty + 1 } : item
       );
@@ -81,31 +79,20 @@ const ProductGrid = () => {
     }
     setpesan(true);
   };
-
-  const handleKurangiPesan = (id, fname,imgpath,harga) => {
-
+  
+  const handleKurangiPesan = (id) => {
     const existingItem = cartItem.find((item) => item.id === id);
-
+  
     if (existingItem) {
-
-      const updatedCart = cartItem.map((item) =>
-        item.id === id ? { ...item, qty: item.qty - 1 } : item
-      );
+      const updatedCart = cartItem
+        .map((item) =>
+          item.id === id ? { ...item, qty: item.qty - 1 } : item
+        )
+        .filter((item) => item.qty > 0);
       setCartItem(updatedCart);
-    } else {
-      setCartItem([
-        ...cartItem,
-        {
-          id,
-          fname,
-          qty: 1,
-          imgpath,
-          harga,
-        },
-      ]);
     }
-    setpesan(false);
   };
+  
 
   const rupiah = (number) => {
     const formatter = new Intl.NumberFormat("id-ID", {
@@ -150,7 +137,7 @@ const ProductGrid = () => {
           ))}
         </div>
       </div>
-      <section className="flex flex-row items-start justify-end py-0 px-0.5 box-border max-w-full text-left text-5xl text-black font-body-large">
+      <section className="flex flex-col items-center justify-end py-0 px-0.5 box-border max-w-full text-left text-5xl text-black font-body-large">
         <div className="w-screen overflow-x-auto  flex lg:flex-row flex-row   items-start justify-center gap-[20px] max-w-full flex-wrap">
           {currentItems.map((e) => (
             <Card
@@ -169,10 +156,9 @@ const ProductGrid = () => {
             />
           ))}
         </div>
-      </section>
-      <div className="w-full lg:m-auto lg:mt-5 m-auto ">
-        <nav aria-label="Page navigation m-auto w-full">
-          <ul className="inline-flex list-none m-auto bg-transparent mr-10">
+        <div className="w-full mt-10 lg:m-auto lg:mt-5 m-auto ">
+        <nav aria-label="Page navigation m-auto w-full ">
+          <ul className=" text-center lg:text-center justify-center items-center flex-row flex list-none m-auto lg:m-auto lg:pl-0 bg-transparent ">
             <li>
               <button className="bg-transparent pointer-events-none px-4 py-2 disabled text-black transition-colors duration-150 focus:bg-main-color border border-r-0 border-main-color rounded-l-lg focus:shadow-outline">
                 Prev
@@ -198,6 +184,8 @@ const ProductGrid = () => {
           </ul>
         </nav>
       </div>
+      </section>
+      
       {pesan && (
         <button
           className="fixed bottom-0 start-0 end-0 cursor-pointer mx-auto flex items-center justify-center w-1/2 my-2 py-1 rounded-md bg-main-color"

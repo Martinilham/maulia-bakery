@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FormLogin = () => {
     const [noTLp,setNotlp] = useState("")
     const [nama,setNama] = useState("")
+    const [alamat,setAlamat] = useState("")
     const navigate = useNavigate();
 
     const api_link = process.env.REACT_APP_API_SECRET
@@ -26,7 +27,7 @@ const handleLogin =  async (event) => {
   event.preventDefault();
   try {
       const response = await axios
-      .post(`${api_link}loginclient`, { noTLp, nama})
+      .post(`http://localhost:5000/loginclient`, { nomorTLP:noTLp, nama,alamat})
       const token = response.data.token
       alert('Login successful')
       ambiluser()
@@ -68,6 +69,21 @@ const handleLogin =  async (event) => {
               type="text"
               value={nama}
               onChange={(e)=> setNama(e.target.value)}
+            />
+          </div>
+          
+        </div>
+        <div className="self-stretch flex flex-col items-start justify-start gap-[16px]">
+          <h1 className="m-0 relative text-inherit leading-[40px] capitalize font-medium font-inherit inline-block min-w-[110px] mq450:text-lgi mq450:leading-[24px] mq1050:text-7xl mq1050:leading-[32px]">
+            Alamat
+          </h1>
+          <div className="self-stretch rounded-lg flex flex-row items-center justify-start py-[18px] px-5 border-[1px] border-solid border-gray">
+          <input
+              className="w-full [border:none] [outline:none] font-body-large text-base bg-[transparent] h-6 relative leading-[24px] text-black text-left inline-block p-0"
+              placeholder="Masukkan username anda"
+              type="text"
+              value={alamat}
+              onChange={(e)=> setAlamat(e.target.value)}
             />
           </div>
           
