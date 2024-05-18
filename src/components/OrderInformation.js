@@ -110,6 +110,8 @@ const OrderInformation = () => {
     if (token) {
       window.snap.pay(token, {
         onSuccess: async (result) => {
+          localStorage.removeItem("pesanan")
+          navigate("/pesan")
           const pesan = {
             idpemesan: dataClient.id,
             namapemesan: dataClient.userName,
@@ -135,9 +137,6 @@ const OrderInformation = () => {
             }
           }
           )
-
-          navigate("/pesan")
-          setToken("")
           
         },
         onPending: (result) => {

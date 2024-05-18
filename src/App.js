@@ -7,6 +7,7 @@ import FormLogin from "./components/formLogin";
 
 const App = () => {
   const isUserSignedIn = !!localStorage.getItem('token');
+  const pesnanan = !!localStorage.getItem('pesanan');
   
   return (
     <BrowserRouter>
@@ -14,7 +15,7 @@ const App = () => {
         {/* Rute beranda */}
         <Route path="/login" element={<FormLogin />} />
         <Route path="/" element={<Home />} />
-        <Route path="/detailpesanan" element={<DetailPesanan />} />
+        <Route path="/detailpesanan" element={pesnanan ? <DetailPesanan /> : <Navigate to="/pesan" />} />
         <Route path="/pesan" element={isUserSignedIn ? <Pesan /> : <Navigate to="/login" />} />
         {/* Rute login */}
         {isUserSignedIn && (
