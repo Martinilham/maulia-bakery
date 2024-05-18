@@ -27,7 +27,7 @@ const handleLogin =  async (event) => {
   event.preventDefault();
   try {
       const response = await axios
-      .post(`http://localhost:5000/loginclient`, { nomorTLP:noTLp, nama,alamat})
+      .post(`${api_link}loginclient`, { nomorTLP:noTLp, nama,alamat})
       const token = response.data.token
       alert('Login successful')
       ambiluser()
