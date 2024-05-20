@@ -136,8 +136,8 @@ const OrderInformation = () => {
             }
           }
           )
+          localStorage.setItem("transaksi",pesan)
           navigate("/detailorder")
-          
         },
         onPending: (result) => {
           
