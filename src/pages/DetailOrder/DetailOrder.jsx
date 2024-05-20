@@ -19,18 +19,17 @@ export default function DetailOrder() {
         <div className='flex flex-col w-1/5'>
             <h3 className='bg-gray'>Transaksi</h3>
             <table>
-                {detail.map((e)=>(
-                    
+               
                     <>
-                        <tr>
+                <tr>
                     <td>OrderID</td>
                     <td>:</td>
-                    <td>{e.idpemesan}</td>
+                    <td>{detail.idpemesan}</td>
                 </tr>
                 <tr>
                     <td>Nama Pemesan</td>
                     <td>:</td>
-                    <td>{e.namapemesan}</td>
+                    <td>{detail.namapemesan}</td>
                 </tr>
                 <tr>
                     <td>Tanggal</td>
@@ -40,20 +39,20 @@ export default function DetailOrder() {
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{alamat}</td>
+                    <td>{detail.alamat}</td>
                 </tr>
                 <tr>
                     <td>No. Telepon</td>
                     <td>:</td>
-                    <td>{e.notlpn}</td>
+                    <td>{detail.notlpn}</td>
                 </tr>
                 <tr>
                     <td>Status Pembayaran</td>
                     <td>:</td>
-                    <td>{e.statusbayar}</td>
+                    <td>{detail.statusbayar}</td>
                 </tr>
                     </>
-                ))}
+
             </table>
         </div>
         <div className='flex w-full'>
