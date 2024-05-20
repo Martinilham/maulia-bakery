@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react';
 export default function DetailOrder() {
 
 
-    const [detail,setDetail] = useState()
+    const [detail,setDetail] = useState({})
     useEffect(() => {
         const storedPesanan = localStorage.getItem("transaksi");
         if (storedPesanan) {
