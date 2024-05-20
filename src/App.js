@@ -1,28 +1,30 @@
 import React from "react";
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
-import DetailPesanan from "./pages/detailPesanan";
-import Pesan from "./pages/Pesan";
+import Home from "./pages/Home/Home";
+import DetailPesanan from "./pages/Order/component/detailPesanan";
+import Pesan from "./pages/Order/Pesan";
 import FormLogin from "./components/formLogin";
+import DetailOrder from "./pages/DetailOrder/DetailOrder";
 
 const App = () => {
-  const isUserSignedIn = !!localStorage.getItem('token');
-  const pesnanan = !!localStorage.getItem('pesanan');
-  
+  const isUserSignedIn = !!localStorage.getItem("token");
+  const pesananan = !!localStorage.getItem("pesanan");
+
   return (
     <BrowserRouter>
       <Routes>
         {/* Rute beranda */}
         <Route path="/login" element={<FormLogin />} />
         <Route path="/" element={<Home />} />
-        <Route path="/detailpesanan" element={pesnanan ? <DetailPesanan /> : <Navigate to="/pesan" />} />
-        <Route path="/pesan" element={isUserSignedIn ? <Pesan /> : <Navigate to="/login" />} />
+        <Route path="/detailpesanan" element={<DetailPesanan />} />
+        <Route
+          path="/pesan"
+          element={isUserSignedIn ? <Pesan /> : <Navigate to="/login" />}
+        />
+        <Route path="/detailorder" element={<DetailOrder />} />
+
         {/* Rute login */}
-        {isUserSignedIn && (
-          <>
-            
-          </>
-        )}
+        {isUserSignedIn && <></>}
       </Routes>
     </BrowserRouter>
   );
