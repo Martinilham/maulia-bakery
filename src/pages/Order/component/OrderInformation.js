@@ -129,15 +129,19 @@ const OrderInformation = () => {
           };
         
 
-          const response = await axios.post(`${api_link}pesanan`,pesan,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            }
+          try {
+            const response = await axios.post(`${api_link}pesanan`, pesan, {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+            
+            localStorage.setItem("transaksi", JSON.stringify(pesan));
+            navigate("/detailorder");
+          } catch (error) {
+            console.error("Error posting order:", error);
+            // Optionally, handle the error (e.g., show an error message to the user)
           }
-          )
-          localStorage.setItem("transaksi",JSON.stringify(pesan))
-          navigate("/detailorder")
         },
         onPending: (result) => {
           
