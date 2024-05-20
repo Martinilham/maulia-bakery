@@ -110,7 +110,7 @@ const OrderInformation = () => {
     if (token) {
       window.snap.pay(token, {
         onSuccess: async (result) => {
-          navigate("/detailorder")
+          
           const pesan = {
             idpemesan: dataClient.id,
             namapemesan: dataClient.userName,
@@ -129,14 +129,15 @@ const OrderInformation = () => {
           };
         
 
-          const response = await axios.post("http://localhost:5000/pesanan",pesan,
+          const response = await axios.post(`${api_link}pesanan`,pesan,
           {
             headers: {
               "Content-Type": "application/json",
             }
           }
           )
-          localStorage.setItem("transaksi",pesan)
+          navigate("/detailorder")
+          
         },
         onPending: (result) => {
           

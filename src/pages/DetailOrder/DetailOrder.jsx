@@ -1,15 +1,18 @@
+import axios from 'axios';
 import React from 'react'
 import { useState,useEffect } from 'react';
 
 
 export default function DetailOrder() {
-
+    const api_link = process.env.REACT_APP_API_SECRET
     const [detail,setDetail] = useState()
-    useEffect(() => {
-        const storedPesanan = localStorage.getItem("transaksi");
-        if (storedPesanan) {
-          setDetail(JSON.parse(storedPesanan));
-        }
+    useEffect( async () => {
+        const res = await axios.get(`${api_link}pesanan`,{
+            headers: {
+                "Content-Type": "application/json",
+              },
+        })
+        setDetail(res.data)
       }, []);
 
   return (
