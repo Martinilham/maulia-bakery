@@ -56,6 +56,7 @@ const ProductGrid = () => {
     getUserData();
     localStorage.removeItem("pesanan")
     localStorage.removeItem("pembayaran")
+    localStorage.removeItem("transaksi")
   }, []);
 
   const handlePesan = (id, fname, imgpath, harga) => {
@@ -89,9 +90,11 @@ const ProductGrid = () => {
         .map((item) =>
           item.id === id ? { ...item, qty: item.qty - 1 } : item
         )
-        .filter((item) => item.qty > 0);
+        .filter((item) => item.qty > 0 ? item : setpesan(false))
+        
       setCartItem(updatedCart);
     }
+    
   };
   
 
@@ -189,7 +192,7 @@ const ProductGrid = () => {
       
       {pesan && (
         <button
-          className="fixed bottom-0 start-0 end-0 cursor-pointer mx-auto flex items-center justify-center w-1/2 my-2 py-1 rounded-md bg-main-color"
+          className=" animate__pulse animate__animated fixed bottom-10 lg:bottom-3 start-0 end-0 cursor-pointer mx-auto flex items-center justify-center w-1/2 my-2 py-1 rounded-md bg-main-color"
           onClick={handleorder}
         >
           <img

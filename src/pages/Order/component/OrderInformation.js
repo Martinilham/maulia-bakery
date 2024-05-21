@@ -171,22 +171,22 @@ const OrderInformation = () => {
   }, []);
 
   return (
-    <div className="w-[1294px] flex flex-row items-start justify-center py-0 px-5 box-border max-w-full text-left text-base text-goldenrod-100 font-body-large">
+    <div className=" w-[1294px] flex flex-row items-start justify-center py-0 px-5 box-border max-w-full text-left text-base text-goldenrod-100 font-body-large">
       <div className="w-[678px] flex flex-col items-start justify-start gap-[23px] max-w-full">
-        <div className="self-stretch flex flex-col items-start justify-start gap-[17px]">
-          <div className="relative leading-[24px]">{`Informasi Pesanan Anda `}</div>
+        <div className="  self-stretch flex flex-col items-start justify-start gap-[17px]">
+          <div className=" animate__slideInLeft animate__animated relative leading-[24px]">{`Informasi Pesanan Anda `}</div>
           <div className="self-stretch flex flex-col items-start justify-start gap-[22px] text-sm text-black">
-            <div className="self-stretch rounded-lg flex flex-row items-start justify-start py-[18px] px-5 border-[1px] border-solid border-gray">
-              <div className="relative leading-[20px]">
+            <div className="animate__slideInLeft animate__animated self-stretch rounded-lg flex flex-row items-start justify-start py-[18px] px-5 border-[1px] border-solid border-gray">
+              <div className=" relative leading-[20px]">
                 <p className="m-0">Nama  : {dataClient.userName}</p>
                 <p className="m-0">{`no tlp : ${dataClient.notlp}`}</p>
                 <p className="m-0">{`Alamat : ${dataClient.alamatClient}`}</p>
               </div>
             </div>
-            <div className="relative text-base leading-[24px] text-goldenrod-100">{`Detail Pesanan Anda `}</div>
+            <div className=" animate__slideInRight animate__animated animate__delay-0.5s relative text-base leading-[24px] text-goldenrod-100">{`Detail Pesanan Anda `}</div>
           </div>
         </div>
-        <div className=" self-stretch rounded-lg box-border flex flex-col items-center justify-start py-[22px] px-[23px] gap-[48px] max-w-full text-black border-[1px] border-solid border-gray mq750:gap-[24px] mq750:pt-5 mq750:pb-5 mq750:box-border">
+        <div className=" animate__slideInRight animate__animated animate__delay-0.5s self-stretch rounded-lg box-border flex flex-col items-center justify-start py-[22px] px-[23px] gap-[48px] max-w-full text-black border-[1px] border-solid border-gray mq750:gap-[24px] mq750:pt-5 mq750:pb-5 mq750:box-border">
           {pesanan.map((item, index) => (
             <Items
               key={index}

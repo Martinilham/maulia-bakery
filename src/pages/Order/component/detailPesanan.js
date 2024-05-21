@@ -8,15 +8,7 @@ const DetailPesanan = ({pesanan}) => {
         <h1 className="text-center">Detail Pesanan</h1>
         <OrderInformation />
       </main>
-      <div className="flex flex-row items-start justify-end py-0 px-[22px]">
-        <div className="w-11 rounded-lg box-border flex flex-row items-start justify-start py-5 px-[9px] shrink-0 [debug_commit:1de1738] border-[1px] border-solid border-gray">
-          <img
-            className="h-6 w-6 relative overflow-hidden shrink-0"
-            alt=""
-            src="/filter-list.svg"
-          />
-        </div>
-      </div>
+      
     </div>
   );
 };

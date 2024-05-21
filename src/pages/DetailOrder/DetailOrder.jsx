@@ -4,6 +4,18 @@ import { useState,useEffect } from 'react';
 
 export default function DetailOrder() {
 
+    const jumlah = (harga, qty) => {
+        return harga * qty;
+      };
+
+      const listpesan = [{
+        No:detail.items.length,
+        nama:detail.namaproduk,
+        harga:detail.harga,
+        jumlah:detail.jumlah,
+        disc:"discount",
+        total:jumlah(detail.harga,detail.jumlah),
+      }]
 
     const [detail,setDetail] = useState({})
     useEffect(() => {
@@ -13,12 +25,13 @@ export default function DetailOrder() {
         }
       }, []);
 
+
   return (
-    <div className='w-full mx-20 mt-6 flex flex-col'>
+    <div className='w-full lg:ml-2 mx-20 lg:mx-1 mt-6 lg:w-full flex flex-col'>
         <h1 className='uppercase'>Transaksi Pesanan</h1>
-        <div className='flex flex-col w-1/5'>
+        <div className=' flex flex-col w-1/5'>
             <h3 className='bg-gray'>Transaksi</h3>
-            <table>
+            <table >
                
                     <>
                 <tr>
@@ -69,12 +82,21 @@ export default function DetailOrder() {
                     </thead>
                     <tbody>
                         <tr>
-
+                        {listpesan.map((e)=>(
+                            <>
+                              <td>{e.No}</td> 
+                              <td>{e.nama}</td>
+                              <td>{e.harga}</td>
+                              <td>{e.jumlah}</td> 
+                              <td>{e.disc}</td>
+                              <td>{e.total}</td>
+                            </>
+                        ))}
                         </tr>
                     </tbody>
                 </table>
         </div>
-        <h4>Total Belanja : </h4>
+        <h4>Total Belanja : {detail.total}</h4>
     </div>
   )
 }
