@@ -59,7 +59,7 @@ const ProductGrid = () => {
     localStorage.removeItem("transaksi")
   }, []);
 
-  const handlePesan = (id, fname, imgpath, harga) => {
+  const handlePesan = (id, fname, imgpath, harga,diskon) => {
     const existingItem = cartItem.find((item) => item.id === id);
   
     if (existingItem) {
@@ -76,6 +76,7 @@ const ProductGrid = () => {
           qty: 1,
           imgpath,
           harga,
+          diskon
         },
       ]);
     }
@@ -90,9 +91,13 @@ const ProductGrid = () => {
         .map((item) =>
           item.id === id ? { ...item, qty: item.qty - 1 } : item
         )
-        .filter((item) => item.qty > 0 ? item : setpesan(false))
-        
-      setCartItem(updatedCart);
+        .filter((item) => item.qty > 0);
+
+        setCartItem(updatedCart);
+
+        if (updatedCart.length === 0) {
+            setpesan(false);
+        }
     }
     
   };
@@ -149,8 +154,8 @@ const ProductGrid = () => {
               porkSataygrilledPork={e.imgpath}
               title={e.fname}
               price={rupiah(e.harga)}
-              button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga)}
-              kurangi = {()=>handleKurangiPesan(e._id, e.fname,e.imgpath,e.harga)}
+              button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga,e.discount)}
+              kurangi = {()=>handleKurangiPesan(e._id)}
               setopen={pesan}
               qty={
                 cartItem.find((item) => item.id === e._id)
