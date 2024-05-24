@@ -1,9 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export default function DetailOrder() {
   const [detail, setDetail] = useState({ items: [] });
+  const printRef = useRef();
   const navigate = useNavigate();
+
+
+  const generatePdf = async () => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: [canvas.width, canvas.height]
+    });
+
+    pdf.addImage(data, 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.save(`Nota Pembelian ${detail.namapemesan}_${detail.notlpn}.pdf`);
+  };
+
 
   useEffect(() => {
     const storedPesanan = localStorage.getItem("transaksi");
@@ -15,11 +35,14 @@ export default function DetailOrder() {
   const jumlah = (harga, qty) => {
     return harga * qty;
   };
+  useEffect(()=>{
+    generatePdf()
+  })
 
   useEffect(()=>{
     setTimeout(()=>{
       navigate("/pesan")
-    },5000)
+    },10000)
   })
 
   const listpesan = detail.items.map((item, index) => ({
@@ -27,7 +50,7 @@ export default function DetailOrder() {
     nama: item.namaproduk,
     harga: item.harga,
     jumlah: item.jumlah,
-    disc: item.diskon || "discount", // Assuming disc might be a property of items
+    disc: item.diskon || "discount",
     total: jumlah(item.harga, item.jumlah),
   }));
 

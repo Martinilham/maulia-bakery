@@ -33,7 +33,7 @@ const ProductGrid = () => {
 
   const api_link = process.env.REACT_APP_API_SECRET;
 
-  const getUserData = async () => {
+  const getProductData = async () => {
     try {
       const res = await axios.get(`${api_link}getdata`, {
         headers: {
@@ -53,10 +53,18 @@ const ProductGrid = () => {
   };
 
   useEffect(() => {
-    getUserData();
+    getProductData();
     localStorage.removeItem("pesanan")
     localStorage.removeItem("pembayaran")
     localStorage.removeItem("transaksi")
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getProductData()
+  }, 2000);
+
+  return () => clearInterval(interval);
   }, []);
 
   const handlePesan = (id, fname, imgpath, harga,diskon) => {
