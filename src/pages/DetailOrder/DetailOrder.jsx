@@ -7,21 +7,21 @@ export default function DetailOrder() {
   const [detail, setDetail] = useState({ items: [] });
   const printRef = useRef();
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
 
-  const generatePdf = async () => {
-    const element = printRef.current;
-    const canvas = await html2canvas(element);
-    const data = canvas.toDataURL('image/png');
-
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: [canvas.width, canvas.height]
-    });
-
-    pdf.addImage(data, 'PNG', 0, 0, canvas.width, canvas.height);
-    pdf.save(`Nota Pembelian ${detail.namapemesan}_${detail.notlpn}.pdf`);
-  };
+  const downloadPDF = () =>{
+    const capture = document.querySelector('.print');
+    setLoader(true);
+    html2canvas(capture).then((canvas)=>{
+      const imgData = canvas.toDataURL('img/png');
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const componentWidth = doc.internal.pageSize.getWidth();
+      const componentHeight = doc.internal.pageSize.getHeight();
+      doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
+      setLoader(false);
+      doc.save('receipt.pdf');
+    })
+  }
 
   useEffect(() => {
     const storedPesanan = localStorage.getItem("transaksi");
@@ -31,18 +31,26 @@ export default function DetailOrder() {
   }, []);
 
   useEffect(() => {
-    if (detail.items.length > 0) {
-      generatePdf().then(() => {
+      downloadPDF().then(() => {
         setTimeout(() => {
           navigate("/pesan");
         }, 10000);
       });
-    }
   }, [detail]);
 
   const jumlah = (harga, qty) => {
     return harga * qty;
   };
+  const rupiah = (number) => {
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
+  };
+
 
   const listpesan = detail.items.map((item, index) => ({
     No: index + 1,
@@ -54,14 +62,14 @@ export default function DetailOrder() {
   }));
 
   return (
-    <div className='w-full lg:ml-2 mx-20 lg:mx-1 mt-6 lg:w-full flex flex-col' ref={printRef}>
-      <h1 className='uppercase'>Transaksi Pesanan</h1>
-      <div className='flex flex-col w-1/5'>
+    <div className='text-xs w-full print mx-4 lg:mx-1 mt-6 lg:w-full flex flex-col'>
+      <h1 className='uppercase lg:text-center text-center'>Transaksi Pesanan</h1>
+      <div className='flex flex-col w-full lg:w-full mx-2 lg:mx-2'>
         <h3 className='bg-gray'>Transaksi</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>OrderID</td>
+        <table className='table-row text-xs' >
+          <tbody >
+            <tr >
+              <td >OrderID</td>
               <td>:</td>
               <td>{detail.idpemesan}</td>
             </tr>
@@ -93,7 +101,7 @@ export default function DetailOrder() {
           </tbody>
         </table>
       </div>
-      <div className='flex w-1/2'>
+      <div className='flex w-full mx-2 lg:mx-2 mt-2'>
         <table style={{ borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr style={{ border: '1px solid black' }}>
@@ -112,14 +120,14 @@ export default function DetailOrder() {
                 <td style={{ border: '1px solid black' }}>{e.nama}</td>
                 <td style={{ border: '1px solid black' }}>{e.harga}</td>
                 <td style={{ border: '1px solid black' }}>{e.jumlah}</td>
-                <td style={{ border: '1px solid black' }}>{e.disc}</td>
+                <td style={{ border: '1px solid black' }}>{e.disc}%</td>
                 <td style={{ border: '1px solid black' }}>{e.total}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <h4>Total Belanja: {detail.total}</h4>
+      <h4 className='mx-2 lg:mx-2'>Total Belanja: {rupiah(detail.total)}</h4>
     </div>
   );
 }
