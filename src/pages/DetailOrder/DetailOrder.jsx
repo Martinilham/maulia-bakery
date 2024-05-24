@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -7,7 +7,6 @@ export default function DetailOrder() {
   const [detail, setDetail] = useState({ items: [] });
   const printRef = useRef();
   const navigate = useNavigate();
-
 
   const generatePdf = async () => {
     const element = printRef.current;
@@ -24,7 +23,6 @@ export default function DetailOrder() {
     pdf.save(`Nota Pembelian ${detail.namapemesan}_${detail.notlpn}.pdf`);
   };
 
-
   useEffect(() => {
     const storedPesanan = localStorage.getItem("transaksi");
     if (storedPesanan) {
@@ -32,18 +30,19 @@ export default function DetailOrder() {
     }
   }, []);
 
+  useEffect(() => {
+    if (detail.items.length > 0) {
+      generatePdf().then(() => {
+        setTimeout(() => {
+          navigate("/pesan");
+        }, 10000);
+      });
+    }
+  }, [detail]);
+
   const jumlah = (harga, qty) => {
     return harga * qty;
   };
-  useEffect(()=>{
-    generatePdf()
-  })
-
-  useEffect(()=>{
-    setTimeout(()=>{
-      navigate("/pesan")
-    },10000)
-  })
 
   const listpesan = detail.items.map((item, index) => ({
     No: index + 1,
@@ -55,7 +54,7 @@ export default function DetailOrder() {
   }));
 
   return (
-    <div className='w-full lg:ml-2 mx-20 lg:mx-1 mt-6 lg:w-full flex flex-col'>
+    <div className='w-full lg:ml-2 mx-20 lg:mx-1 mt-6 lg:w-full flex flex-col' ref={printRef}>
       <h1 className='uppercase'>Transaksi Pesanan</h1>
       <div className='flex flex-col w-1/5'>
         <h3 className='bg-gray'>Transaksi</h3>
