@@ -108,7 +108,6 @@ const OrderInformation = () => {
         onSuccess: async (result) => {
 
           const convertedItems = pesanan.map(item => ({
-            produk_id: item.id,
             namaproduk: item.fname,
             harga: item.harga,
             diskon: item.diskon,
