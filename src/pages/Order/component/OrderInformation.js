@@ -104,17 +104,21 @@ const OrderInformation = () => {
     if (token) {
       window.snap.pay(token, {
         onSuccess: async (result) => {
+
+          const convertedItems = pesanan.map(item => ({
+            produk_id: item.id,
+            namaproduk: item.fname,
+            harga: item.harga,
+            diskon: item.diskon,
+            jumlah: item.qty
+          }));
+          
+
           const pesan = {
             idpemesan: dataClient.userId,
             orderId: generateOrderId(),
             namapemesan: dataClient.userName,
-            items: pesanan.map(item => ({
-              produk_id: item.id,
-              namaproduk: item.fname,
-              harga: item.harga,
-              diskon: item.diskon,
-              jumlah: item.qty
-            })),
+            items: convertedItems,
             alamat: dataClient.alamatClient,
             notlpn: dataClient.notlp,
             total: totalOrder,
