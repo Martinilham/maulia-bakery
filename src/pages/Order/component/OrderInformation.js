@@ -100,6 +100,8 @@ const OrderInformation = () => {
     }
   };
 
+  console.log(pesanan)
+
   useEffect(() => {
     if (token) {
       window.snap.pay(token, {
@@ -118,7 +120,7 @@ const OrderInformation = () => {
             idpemesan: dataClient.userId,
             orderId: generateOrderId(),
             namapemesan: dataClient.userName,
-            items: convertedItems,
+            items: [convertedItems],
             alamat: dataClient.alamatClient,
             notlpn: dataClient.notlp,
             total: totalOrder,

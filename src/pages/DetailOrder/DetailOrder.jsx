@@ -59,7 +59,7 @@ export default function DetailOrder() {
     nama: item.namaproduk,
     harga: item.harga,
     jumlah: item.jumlah,
-    disc: item.diskon || "discount",
+    disc: item.diskon,
     total: jumlah(item.harga, item.jumlah),
   }));
 
@@ -135,4 +135,3 @@ export default function DetailOrder() {
     </div>
   );
 }
-
