@@ -20,21 +20,23 @@ export default function DetailOrder() {
       doc.save('receipt.pdf');
     })
   }
-
+  
   useEffect(() => {
     const storedPesanan = localStorage.getItem("transaksi");
     if (storedPesanan) {
       setDetail(JSON.parse(storedPesanan));
     }
   }, []);
-
-  useEffect(() => {
+  
+    useEffect(() => {
+    if (detail.items.length > 0) { 
       downloadPDF().then(() => {
         setTimeout(() => {
           navigate("/pesan");
         }, 10000);
       });
-  }, [detail]);
+    }
+  }, [detail, navigate]);
 
   const jumlah = (harga, qty) => {
     return harga * qty;
