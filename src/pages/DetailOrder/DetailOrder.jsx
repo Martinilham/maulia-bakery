@@ -7,33 +7,35 @@ export default function DetailOrder() {
   const [detail, setDetail] = useState({ items: [] });
   const printRef = useRef();
   const navigate = useNavigate();
-  const [loader, setLoader] = useState(false);
 
-  const downloadPDF = () =>{
+
+  const downloadPDF = async () => {
     const capture = document.querySelector('.print');
-    html2canvas(capture).then((canvas)=>{
-      const imgData = canvas.toDataURL('img/png');
-      const doc = new jsPDF('p', 'mm', 'a4');
-      const componentWidth = doc.internal.pageSize.getWidth();
-      const componentHeight = doc.internal.pageSize.getHeight();
-      doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-      doc.save('receipt.pdf');
-    })
-  }
-  
+    const canvas = await html2canvas(capture);
+    const imgData = canvas.toDataURL('image/png');
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const componentWidth = doc.internal.pageSize.getWidth();
+    const componentHeight = doc.internal.pageSize.getHeight();
+    doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
+    doc.save('DetailOrder.pdf');
+  };
+
+
   useEffect(() => {
     const storedPesanan = localStorage.getItem("transaksi");
     if (storedPesanan) {
       setDetail(JSON.parse(storedPesanan));
     }
   }, []);
-  
-    useEffect(() => {
+
+  useEffect(() => {
     if (detail.items.length > 0) { 
       downloadPDF().then(() => {
         setTimeout(() => {
           navigate("/pesan");
         }, 10000);
+      }).catch(err => {
+        console.error('Error generating PDF:', err);
       });
     }
   }, [detail, navigate]);
@@ -62,10 +64,11 @@ export default function DetailOrder() {
   }));
 
   return (
-    <div className='text-xs w-full print mx-4 lg:mx-1 mt-6 lg:w-full flex flex-col'>
-      <h1 className='uppercase lg:text-center text-center'>Transaksi Pesanan</h1>
-      <div className='flex flex-col w-full lg:w-full mx-2 lg:mx-2'>
-        <h3 className='bg-gray'>Transaksi</h3>
+    <div className='w-full'>
+      <div className='text-xs min-w-full print mt-6 lg:w-full flex flex-col'>
+      <h1 className='uppercase text-center lg:text-center'>Transaksi Pesanan</h1>
+      <div className='flex flex-col w-full lg:w-full mx-2'>
+        <h3 className='bg-gray w-1/2'>Transaksi</h3>
         <table className='table-row text-xs' >
           <tbody >
             <tr >
@@ -102,7 +105,7 @@ export default function DetailOrder() {
         </table>
       </div>
       <div className='flex w-full mx-2 lg:mx-2 mt-2'>
-        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+        <table style={{ borderCollapse: 'collapse', width: '98%' }}>
           <thead>
             <tr style={{ border: '1px solid black' }}>
               <th style={{ border: '1px solid black' }}>No</th>
@@ -118,16 +121,18 @@ export default function DetailOrder() {
               <tr style={{ border: '1px solid black' }} key={e.No}>
                 <td style={{ border: '1px solid black' }}>{e.No}</td>
                 <td style={{ border: '1px solid black' }}>{e.nama}</td>
-                <td style={{ border: '1px solid black' }}>{e.harga}</td>
+                <td style={{ border: '1px solid black' }}>{rupiah(e.harga)}</td>
                 <td style={{ border: '1px solid black' }}>{e.jumlah}</td>
                 <td style={{ border: '1px solid black' }}>{e.disc}%</td>
-                <td style={{ border: '1px solid black' }}>{e.total}</td>
+                <td style={{ border: '1px solid black' }}>{rupiah(e.total)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <h4 className='mx-2 lg:mx-2'>Total Belanja: {rupiah(detail.total)}</h4>
+      </div>
     </div>
   );
 }
+
