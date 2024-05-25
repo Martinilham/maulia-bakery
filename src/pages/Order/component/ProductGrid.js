@@ -67,7 +67,7 @@ const ProductGrid = () => {
   return () => clearInterval(interval);
   }, []);
 
-  const handlePesan = (id, fname, imgpath, harga,diskon) => {
+  const handlePesan = (id, fname, imgpath, harga,diskon,kategori,stok) => {
     const existingItem = cartItem.find((item) => item.id === id);
   
     if (existingItem) {
@@ -84,7 +84,9 @@ const ProductGrid = () => {
           qty: 1,
           imgpath,
           harga,
-          diskon
+          diskon,
+          kategori,
+          stok
         },
       ]);
     }
@@ -162,7 +164,7 @@ const ProductGrid = () => {
               porkSataygrilledPork={e.imgpath}
               title={e.fname}
               price={rupiah(e.harga)}
-              button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga,e.discount)}
+              button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga,e.discount,e.kategori,e.stok)}
               kurangi = {()=>handleKurangiPesan(e._id)}
               setopen={pesan}
               qty={
