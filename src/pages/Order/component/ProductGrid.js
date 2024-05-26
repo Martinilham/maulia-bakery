@@ -76,7 +76,7 @@ const ProductGrid = () => {
           item.id === id ? { ...item, qty: item.qty + 1 } : item
         );
         setCartItem(updatedCart);
-      }
+      } 
     } else {
       setCartItem([
         ...cartItem,
