@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,kurangi,qty}) => {
+const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,kurangi,qty,stok}) => {
   const navigate = useNavigate()
   return (
     <div className=" w-50 lg:w-36 rounded-lg bg-white box-border shrink-0 flex lg:flex-row flex-row items-start justify-start py-[18px] px-[18px] text-left text-5xl text-black font-body-large border-[1px] border-solid border-gray mq650:pt-5 mq650:pb-5 mq650:box-border">
@@ -10,6 +10,13 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,
           alt=""
           src={porkSataygrilledPork}
         />
+        {(stok === 0 || qty >= stok) && (
+          <img
+            className="absolute top-0 left-0 w-full h-40 object-cover bg-zinc-500 bg-opacity-30 z-20"
+            alt="Overlay"
+            src="stok_kosong.png"
+          />
+        )}
         <div className="self-stretch flex flex-col items-start justify-start gap-[2px]">
           <div className="self-stretch flex flex-col items-start justify-start gap-[6px]">
             <h3 className="m-0 self-stretch lg:font-small relative text-inherit capitalize font-medium font-inherit overflow-hidden text-ellipsis whitespace-nowrap mq450:text-lgi mq450:leading-[32px]">
@@ -23,11 +30,15 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,
             <div className="lg:font-small relative   whitespace-nowrap mq450:text-base mq450:leading-[19px]">
               {price}
             </div>
-            {qty > 0 && setopen ? (
+            {qty > 0 && stok != 0 && setopen ? (
                 <div className="w-full lg:w-full justify-center items-center flex-row flex">
                   <button 
-                className="cursor-pointer flex items-center justify-center  w-10 my-2 py-1 rounded-md bg-main-color"
+                
                 onClick={button}
+                className={`button ${qty >= stok ? 
+                  'flex items-center justify-center  w-10 my-2 py-1 rounded-md bg-gray' : 
+                  'cursor-pointer flex items-center justify-center  w-10 my-2 py-1 rounded-md bg-main-color'}`}
+                
                 >  
                   <span>+</span>
                 </button>
@@ -42,8 +53,11 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,
               
               ) : (
                 <button 
-                className="cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color"
                 onClick={button}
+                disabled={stok == 0}
+                className={`button ${stok == 0 ? 
+                  'button-disabled flex items-center justify-center w-full my-2 py-1 rounded-md bg-gray' : 
+                  'button-enabled cursor-pointer flex items-center justify-center w-full my-2 py-1 rounded-md bg-main-color'}`}
                 > 
                   <span>Pesan</span>
                 </button>

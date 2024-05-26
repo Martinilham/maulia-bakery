@@ -40,8 +40,11 @@ export default function DetailOrder() {
     }
   }, [detail, navigate]);
 
-  const jumlah = (harga, qty) => {
-    return harga * qty;
+  const jumlah = (harga, qty,diskon) => {
+    const totalharga = harga * qty;
+    const Diskon = totalharga * (diskon/100);
+    const setelah_diskon = totalharga - Diskon;
+    return setelah_diskon;
   };
   const rupiah = (number) => {
     const formatter = new Intl.NumberFormat("id-ID", {
@@ -60,11 +63,12 @@ export default function DetailOrder() {
     harga: item.harga,
     jumlah: item.jumlah,
     disc: item.diskon,
-    total: jumlah(item.harga, item.jumlah),
+    total: jumlah(item.harga, item.jumlah, item.diskon),
   }));
 
   return (
     <div className='w-full'>
+      <button></button>
       <div className='text-xs min-w-full print mt-6 lg:w-full flex flex-col'>
       <h1 className='uppercase text-center lg:text-center'>Transaksi Pesanan</h1>
       <div className='flex flex-col w-full lg:w-full mx-2'>
@@ -118,7 +122,7 @@ export default function DetailOrder() {
           </thead>
           <tbody>
             {listpesan.map((e) => (
-              <tr style={{ border: '1px solid black' }} key={e.No}>
+              <tr style={{ border: '1px solid black' }} className='text-center' key={e.No}>
                 <td style={{ border: '1px solid black' }}>{e.No}</td>
                 <td style={{ border: '1px solid black' }}>{e.nama}</td>
                 <td style={{ border: '1px solid black' }}>{rupiah(e.harga)}</td>

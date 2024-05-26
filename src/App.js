@@ -5,6 +5,7 @@ import DetailPesanan from "./pages/Order/component/detailPesanan";
 import Pesan from "./pages/Order/Pesan";
 import FormLogin from "./components/formLogin";
 import DetailOrder from "./pages/DetailOrder/DetailOrder";
+import Pesananku from "./pages/pesananku";
 
 const App = () => {
   const isUserSignedIn = !!localStorage.getItem("token");
@@ -20,6 +21,10 @@ const App = () => {
         <Route
           path="/pesan"
           element={isUserSignedIn ? <Pesan /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/pesanansaya"
+          element={isUserSignedIn ? <Pesananku /> : <Navigate to="/login" />}
         />
         <Route path="/detailorder" element={<DetailOrder />} />
 

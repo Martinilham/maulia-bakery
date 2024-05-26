@@ -67,14 +67,18 @@ const ProductGrid = () => {
   return () => clearInterval(interval);
   }, []);
 
-  const handlePesan = (id, fname, imgpath, harga,diskon,kategori,stok) => {
+  const handlePesan = (id, fname, imgpath, harga, diskon, kategori, stok) => {
     const existingItem = cartItem.find((item) => item.id === id);
   
     if (existingItem) {
-      const updatedCart = cartItem.map((item) =>
-        item.id === id ? { ...item, qty: item.qty + 1 } : item
-      );
-      setCartItem(updatedCart);
+      if (existingItem.qty < stok) {
+        const updatedCart = cartItem.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
+        );
+        setCartItem(updatedCart);
+      } else {
+        alert("Stock is insufficient!");
+      }
     } else {
       setCartItem([
         ...cartItem,
@@ -102,17 +106,15 @@ const ProductGrid = () => {
           item.id === id ? { ...item, qty: item.qty - 1 } : item
         )
         .filter((item) => item.qty > 0);
-
-        setCartItem(updatedCart);
-
-        if (updatedCart.length === 0) {
-            setpesan(false);
-        }
+  
+      setCartItem(updatedCart);
+  
+      if (updatedCart.length === 0) {
+        setpesan(false);
+      }
     }
-    
   };
   
-
   const rupiah = (number) => {
     const formatter = new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -164,9 +166,10 @@ const ProductGrid = () => {
               porkSataygrilledPork={e.imgpath}
               title={e.fname}
               price={rupiah(e.harga)}
-              button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga,e.discount,e.kategori,e.stok)}
+              button={() => handlePesan(e._id, e.fname,e.imgpath,e.harga,e.discount,e.kategori,e.jumlah)}
               kurangi = {()=>handleKurangiPesan(e._id)}
               setopen={pesan}
+              stok={e.jumlah}
               qty={
                 cartItem.find((item) => item.id === e._id)
                   ? cartItem.find((item) => item.id === e._id).qty

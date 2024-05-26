@@ -33,7 +33,6 @@ const OrderInformation = () => {
     const tangaglan = `${konversi},${tanggal}`
     setTanggalWaktuString(tangaglan);
   }, []);
-  console.log(tanggalWaktuString)
 
   const generateOrderId = () => {
     const timestamp = Date.now();
@@ -100,7 +99,6 @@ const OrderInformation = () => {
     }
   };
 
-  console.log(pesanan)
 
   useEffect(() => {
     if (token) {
@@ -110,6 +108,7 @@ const OrderInformation = () => {
           const convertedItems = pesanan.map(item => ({
             produk_id: item.id,
             namaproduk: item.fname,
+            kategori:item.kategori,
             harga: item.harga,
             diskon: item.diskon,
             jumlah: item.qty
@@ -161,6 +160,50 @@ const OrderInformation = () => {
     }
   }, [token]);
 
+  const bayarDitempat = async()=>{
+    const convertedItems = pesanan.map(item => ({
+            produk_id: item.id,
+            namaproduk: item.fname,
+            kategori:item.kategori,
+            harga: item.harga,
+            diskon: item.diskon,
+            jumlah: item.qty
+          }));
+          
+
+          const pesan = {
+            idpemesan: dataClient.userId,
+            orderId: generateOrderId(),
+            namapemesan: dataClient.userName,
+            items: convertedItems,
+            alamat: dataClient.alamatClient,
+            notlpn: dataClient.notlp,
+            total: totalOrder,
+            statusbayar: "Bayar Ditempat",
+            statusditerima: "processing",
+            tglorder: tanggalWaktuString
+          };
+
+          try {
+            await axios.post(`${api_link}pesanan`, pesan, {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+
+            await axios.put(`${api_link}kurangi-stok`, { items: convertedItems }, {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+
+            localStorage.setItem("transaksi", JSON.stringify(pesan));
+            navigate("/detailorder");
+          } catch (error) {
+            console.error("Error posting order:", error);
+          }
+  }
+
   useEffect(() => {
     const midtransUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     let scriptTag = document.createElement("script");
@@ -207,14 +250,24 @@ const OrderInformation = () => {
               <div className="relative leading-[24px]">{`Total Pesanan Anda: ${rupiah(totalOrder)}`}</div>
             </div>
           </div>
+          <div className="flex justify-between flex-wrap w-full">
+          <button
+            className="cursor-pointer left-full py-4 px-5 bg-main-color self-stretch rounded-lg flex flex-row items-center justify-center border-[1px] border-solid border-main-color hover:bg-darkgoldenrod-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkgoldenrod-100"
+            onClick={bayarDitempat}
+          >
+            <div className="relative text-base leading-[24px] font-body-large text-white text-left">
+              Bayar DiTempat
+            </div>
+          </button>
           <button
             className="cursor-pointer py-4 px-5 bg-main-color self-stretch rounded-lg flex flex-row items-center justify-center border-[1px] border-solid border-main-color hover:bg-darkgoldenrod-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkgoldenrod-100"
             onClick={pembayaran}
           >
             <div className="relative text-base leading-[24px] font-body-large text-white text-left">
-              Lakukan Pembayaran
+              bayar Sekarang
             </div>
           </button>
+          </div>
         </div>
       </div>
     </div>
