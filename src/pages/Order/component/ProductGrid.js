@@ -76,8 +76,6 @@ const ProductGrid = () => {
           item.id === id ? { ...item, qty: item.qty + 1 } : item
         );
         setCartItem(updatedCart);
-      } else {
-        alert("Stock is insufficient!");
       }
     } else {
       setCartItem([
