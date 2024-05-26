@@ -108,6 +108,7 @@ const OrderInformation = () => {
         onSuccess: async (result) => {
 
           const convertedItems = pesanan.map(item => ({
+            produk_id: item.id,
             namaproduk: item.fname,
             harga: item.harga,
             diskon: item.diskon,
@@ -130,6 +131,12 @@ const OrderInformation = () => {
 
           try {
             await axios.post(`${api_link}pesanan`, pesan, {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+
+            await axios.put(`${api_link}kurangi-stok`, { items: convertedItems }, {
               headers: {
                 "Content-Type": "application/json"
               }
