@@ -16,10 +16,10 @@ const Detail = () => {
     useEffect(() => {
         fetchData();
     }, [id]);
-
+	  const api_link = process.env.REACT_APP_API_SECRET;
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/pesanan/${id}`);
+            const response = await axios.get(`${api_link}/pesanan/${id}`);
             console.log('API Response:', response.data); 
             setData(response.data);
         } catch (error) {
