@@ -11,15 +11,15 @@ import Navbar from "./components/navbar";
 const Home = () => {
   const navlinks = [
     {
-      label: "Home",
+      label: "",
       link: "#"
     },
     {
-      label: "About",
+      label: "",
       link: "#"
     },
     {
-      label: "Contact",
+      label: "",
       link: "#"
     }
   ];
