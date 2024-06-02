@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-export default function DetailOrder() {
+export default function DetailOrder({catatan}) {
   const [detail, setDetail] = useState({ items: [] });
   const printRef = useRef();
   const navigate = useNavigate();
@@ -135,6 +135,7 @@ export default function DetailOrder() {
         </table>
       </div>
       <h4 className='mx-2 lg:mx-2'>Total Belanja: {rupiah(detail.total)}</h4>
+      <p className='mx-2 lg:mx-2' >Catatan:<span className='font-bold'>*Untuk konfirmasi pembayaran, silakan datang ke outlet MauliaBakery yang beralamat di RT 02 RW 02, Dusun Sanggrahan, Desa Sukorejo, Kecamatan Tugu, Kabupaten Trenggalek. Pastikan Anda membawa bukti pembayaran untuk mempermudah proses verifikasi. Terima kasih atas pesanan Anda.*</span></p>
       </div>
     </div>
   );

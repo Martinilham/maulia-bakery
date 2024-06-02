@@ -11,7 +11,7 @@ const FormLogin = () => {
     const api_link = process.env.REACT_APP_API_SECRET
 const ambiluser = () => {
     axios
-    .get(`${api_link}client`)
+    .get(`/api/proxy/client`)
     .then((res) => {
         console.log(res.data)
     })
@@ -27,7 +27,7 @@ const handleLogin =  async (event) => {
   event.preventDefault();
   try {
       const response = await axios
-      .post(`${api_link}loginclient`, { nomorTLP:noTLp, nama,alamat})
+      .post(`/api/proxy/loginclient`, { nomorTLP:noTLp, nama,alamat})
       const token = response.data.token
       alert('Login successful')
       ambiluser()
@@ -80,7 +80,7 @@ const handleLogin =  async (event) => {
           <div className="self-stretch rounded-lg flex flex-row items-center justify-start py-[8px] px-5 border-[1px] border-solid border-gray">
           <input
               className="w-full [border:none] [outline:none] font-body-large text-base bg-[transparent] h-5 relative leading-[24px] text-black text-left inline-block p-0"
-              placeholder="Masukkan username anda"
+              placeholder="Masukkan Detail Alamat anda"
               type="text"
               value={alamat}
               onChange={(e)=> setAlamat(e.target.value)}

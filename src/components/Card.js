@@ -12,7 +12,7 @@ const Card = ({ porkSataygrilledPork, title, description, price,button ,setopen,
         />
         <div className="self-stretch flex flex-col items-start justify-start gap-[2px]">
           <div className="self-stretch flex flex-col items-start justify-start gap-[6px]">
-            <h3 className="m-0 self-stretch lg:font-small relative text-inherit capitalize font-medium font-inherit overflow-hidden text-ellipsis whitespace-nowrap mq450:text-lgi mq450:leading-[32px]">
+            <h3 className="m-0 line-clamp-1 self-stretch lg:font-small relative text-inherit capitalize font-medium font-inherit overflow-hidden text-ellipsis whitespace-nowrap mq450:text-lgi mq450:leading-[32px]">
               {title}
             </h3>
             <div className="self-stretch relative text-base leading-[24px] [display:-webkit-inline-box] overflow-hidden text-ellipsis [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">

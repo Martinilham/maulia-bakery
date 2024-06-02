@@ -16,7 +16,7 @@ const FrameComponent2 = ({
           {andiaJorida}
         </h3>
       </div>
-      <div className="overflow-auto self-stretch relative text-base leading-[24px] [display:-webkit-inline-box] text-ellipsis [-webkit-line-clamp:6] [-webkit-box-orient:vertical]">
+      <div className="overflow-auto self-stretch line-clamp-2 lg:line-clamp-none hover:line-clamp-4 relative text-base leading-[24px] [display:-webkit-inline-box] text-ellipsis [-webkit-line-clamp:6] [-webkit-box-orient:vertical]">
         {myExperienceAtYourRestaur}
       </div>
     </div>

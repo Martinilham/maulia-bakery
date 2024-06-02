@@ -60,8 +60,8 @@ const Footer = () => {
               <div className="relative leading-[24px] inline-block min-w-[53px] z-[1]">
                 Kontak
               </div>
-              <div className="relative leading-[24px] z-[1]">
-                <span>Whatsapp : (+62) - 85235675699</span>
+              <div className="relative leading-[24px] z-[1] ">
+                <span>Whatsapp : <a className="decoration-transparent" href="https://wa.me/087851601396" >087851601396</a></span>
               </div>
             </div>
             <div className="w-[217px] flex flex-col items-start justify-start gap-[16px] min-w-[217px] text-13xl mq750:flex-1">
@@ -71,6 +71,7 @@ const Footer = () => {
               <div className="self-stretch relative text-base leading-[24px] z-[1]">
                 RT/RW 02/02 Desa Sukorejo Kec.Tugu Kab. Trenggalek Jawa Timur
               </div>
+              <a className="self-stretch relative text-base leading-[24px] z-[1]" href="https://maps.app.goo.gl/S7JPW7U347UfxHqm6">Lokasi Gmaps</a>
             </div>
           </div>
         </div>

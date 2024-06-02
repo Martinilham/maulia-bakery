@@ -34,7 +34,7 @@ const Card1 = ({
           <h1 className="m-0 text-center relative text-inherit leading-[40px] capitalize font-medium font-inherit mq450:text-lgi mq450:leading-[24px] mq1050:text-7xl mq1050:leading-[32px]">
             {title}
           </h1>
-          <div className="self-stretch relative text-base leading-[24px] text-center">
+          <div className="self-stretch relative text-base leading-[24px] text-center lg:line-clamp-none line-clamp-3 hover:line-clamp-none">
             {description}
           </div>
         </div>

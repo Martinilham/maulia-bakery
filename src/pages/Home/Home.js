@@ -7,21 +7,29 @@ import ShowReview from "../../components/ShowReview";
 import FormReview from "../../components/FormReview";
 import Footer from "../../components/Footer";
 import Navbar from "./components/navbar";
+import { useEffect } from "react";
 
 const Home = () => {
+
+  useEffect(()=>{
+    localStorage.removeItem("token")
+    localStorage.removeItem("orders")
+  })
+
+
   const navlinks = [
-    {
-      label: "",
-      link: "#"
-    },
-    {
-      label: "",
-      link: "#"
-    },
-    {
-      label: "",
-      link: "#"
-    }
+    // {
+    //   label: "Home",
+    //   link: "#"
+    // },
+    // {
+    //   label: "About",
+    //   link: "#"
+    // },
+    // {
+    //   label: "Contact",
+    //   link: "#"
+    // }
   ];
 
   return (

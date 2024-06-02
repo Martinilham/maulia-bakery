@@ -5,12 +5,13 @@ const FormReview = () => {
   const [nama,setnama] = useState()
   const [review,setReview] = useState()
 
+
   const api_link = process.env.REACT_APP_API_SECRET
   const handleReview =  async (e) => {
     e.preventDefault();
     try {
         await axios
-        .post(`${api_link}review`, { nama, review })
+        .post(`/api/proxy/review`, { nama, review })
         alert('Review berhasil di kirim')
     } catch (error) {
         alert('Review gagal di kirim')
@@ -56,6 +57,7 @@ const FormReview = () => {
         </button>
       </div>
     </div>
+    
   );
 };
 

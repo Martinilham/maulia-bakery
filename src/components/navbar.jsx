@@ -29,11 +29,6 @@ export default function Navbar({links}) {
           ))}
         </div>
         </div>
-
-        {/* last section */}
-
-
-        {/* sidebar mobile menu */}
         <div
           className={clsx(
             "fixed h-full w-full md:hidden bg-black/50 backdrop-blur-sm top-0 right-0 -translate-x-full transition-all",
